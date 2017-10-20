@@ -52,14 +52,14 @@ router
        notification: {
         title: subject,
         body: content
-      }/*,
+      },
         data: {
           subject: subject,
           content: content,
-          id_user: id_user,
-          read: read,
-          delivered: delivered
-      }*/
+          id_user: id_user.toString(),
+          read: read.toString(),
+          delivered: delivered.toString()
+      }
 
     };
     console.log(payload)
