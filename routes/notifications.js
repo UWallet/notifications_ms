@@ -22,7 +22,7 @@ admin.initializeApp({
 
 router
   .post('/', function(req, res, next) { // Post
-    if(!req.body.id_user || !req.body.subject || !req.body.content ){
+    if(!req.body.id_user || !req.body.subject || !req.body.content || !req.body.notification_key ){
       res
         .status(400)
         .json({ message: 'Bad Request', code: 400, description: 'Peticion incorrecta' })
@@ -31,6 +31,7 @@ router
     var subject = req.body.subject;
     var content = req.body.content;
     var id_user = req.body.id_user;
+    var notificationKey = req.body.notification_key;
 
     var read = false;
     var delivered = false;
@@ -45,17 +46,24 @@ router
       delivered: delivered
     })
     // The topic name can be optionally prefixed with "/topics/".
-    var notificationKey = "APA91bHwK96jUGCrvqVQ1kE_GvLvH4oj7E2GMUj-dI2bRFzbblD3Z0wSMf3xRlApfY07xxXbo9L7GXUAmTFiwd8t4BM_3hllDu3e26WVJzhOxQQuLIqayIA";
-
     // See the "Defining the message payload" section below for details
     // on how to define a message payload.
     var payload = {
-    notification: {
-    title: "$GOOG up 1.43% on the day",
-    body: "$GOOG gained 11.80 points to close at 835.67, up 1.43% on the day."
-    }
-    };
+       notification: {
+        title: subject,
+        body: content
+      }/*,
+        data: {
+          subject: subject,
+          content: content,
+          id_user: id_user,
+          read: read,
+          delivered: delivered
+      }*/
 
+    };
+    console.log(payload)
+    console.log(notificationKey)
     admin.messaging().sendToDeviceGroup(notificationKey, payload)
       .then(function(response) {
         // See the MessagingDeviceGroupResponse reference documentation for
@@ -67,19 +75,6 @@ router
         console.log("Error sending message:", error);
         res.status(500);
       });
-
-
-  /*  admin.messaging().sendToDevice(devise, payload)
-      .then(function(response) {
-        // See the MessagingDevicesResponse reference documentation for
-        // the contents of response.
-        console.log("Successfully sent message:", response);
-        //res.writeContinue().json({ message: 'Bad Request', code: 400, description: 'Parametros vacios' });
-      })
-      .catch(function(error) {
-        console.log("Error sending message:", error);
-        //res.status(500).json({ message: 'Bad Request', code: 400, description: 'Parametros vacios' });
-      });*/
 
     res
       .status(201)
