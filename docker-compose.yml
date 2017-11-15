@@ -1,11 +1,11 @@
 version: '2'
 services:
   notifications-ms:
-    image: kmendezp/notifications-ms
     #build: .
+    image: kmendezp/notifications-ms
     #command: npm run dev
-    volumes:
-      - "./app:/src/app"
+    #volumes:
+    #  - "./app:/src/app"
     #  - /usr/app/node_modules
     ports:
       - "3002:3002"
