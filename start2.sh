@@ -1,7 +1,7 @@
 ./rancher-compose --project-name notifications-ms \
---url http://192.168.99.100:8080/v1/projects/1a5 \
---access-key 70EE95E3F0704CB1BC85 \
---secret-key UbkJvYrYRBub9fsXxmzAP8GF2QVtmE4MsyeuFEBw \
+--url http://192.168.99.101:8080/v1/projects/1a5 \
+--access-key 917B1637E7F1F1EE8F56 \
+--secret-key Vb6GNomP5Cx1ESCoJroHHGZZZcN2EVQEGSQ5zkTZ \
 -f docker-compose.yml \
 --verbose up \
 -d --force-upgrade \
